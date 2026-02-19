@@ -1,10 +1,25 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
 
 function Navbar() {
+    const { user, setUser } = useAuth()
+    const navigate = useNavigate()
+    const handleLogout = async (e) => {
+        const res = await fetch("http://localhost:3000/api/logout", {
+            method: "POST",
+            credentials: "include"
+        });
+        const data = await res.json();
+        console.log("Logout", data)
+        if (data.success) {
+            setUser(null);
+            navigate("/login")
+        }
+    }
     return (
         <nav className="w-full h-16 flex justify-between text-center items-center gap-4 px-4">
             <div className="flex-1">
-                <span className="font-bold text-2xl text-[#FF385C]" an>Airbnb</span>
+                <span className="font-bold text-2xl text-[#FF385C]">Airbnb</span>
             </div>
             <div className="flex-3 flex justify-center">
                 <NavLink className="transition duration-150 rounded-[8px] p-1 px-3 font-medium"
@@ -25,18 +40,24 @@ function Navbar() {
 
             </div>
             <div className="flex-1 h-16 flex items-center">
-                <NavLink to="/login"
-                    className=" w-full cursor-pointer  transition duration-150 rounded-[8px] p-1 px-3 font-medium">Login</NavLink>
+
+                {!user ? <>
+
+                    <NavLink to="/login"
+                        className=" w-full cursor-pointer  transition duration-150 rounded-[8px] p-1 px-3 font-medium">Login</NavLink>
 
 
-                <NavLink to="/signup"
-                    className="w-full cursor-pointer  transition duration-150 rounded-[8px] p-1 px-3 font-medium">Sign
-                    up</NavLink>
+                    <NavLink to="/signup"
+                        className="w-full cursor-pointer  transition duration-150 rounded-[8px] p-1 px-3 font-medium">Sign
+                        up</NavLink>
+
+                </> : <button onClick={handleLogout}
+                    className="bg-[#FF385C] w-full cursor-pointer  transition duration-150 rounded-4xl p-3 font-medium">Logout</button>}
 
 
 
-                <button type="submit"
-                    className="bg-[#FF385C] w-full cursor-pointer  transition duration-150 rounded-4xl p-3 font-medium">Logout</button>
+
+
 
 
             </div>
