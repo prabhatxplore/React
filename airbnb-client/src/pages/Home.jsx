@@ -1,7 +1,23 @@
+import { useEffect, useState } from "react";
 import Card from "../components/card";
+import { useAuth } from "../context/AuthContext";
+
 
 
 export default function Home() {
+    const { setUser } = useAuth();
+    const [homes, setHomes] = useState([]);
+    useEffect(() => {
+
+        fetch("http://localhost:3000/api/home", {
+            credentials: "include"
+        }).then(res => res.json()).then((data) => {
+            setUser(data.user);
+            setHomes(data.homes)
+            console.log(data)
+        })
+    }, [])
+
     return (
         <>
             <div className="w-[50vw] mx-auto gap-5 py-14  rounded-3xl h-fit items-center flex flex-col">
@@ -16,7 +32,9 @@ export default function Home() {
                 <h1 className=" text-center p-6 rounded-3xl font-medium text-2xl ">
                     Available Homes
                 </h1>
-                <Card />
+                <div className="flex gap-9">
+                    {homes.map(home => <Card key={home._id} home={home} />)}
+                </div>
             </div>
         </>
     )
