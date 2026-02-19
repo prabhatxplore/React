@@ -21,7 +21,7 @@ function Signup() {
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 First Name
                             </label>
-                            <input value="" type="text" name="first_name" required
+                            <input  type="text" name="first_name" required
                                 className="w-full border border-gray-300 rounded-xl px-4 py-2.5 
                                    focus:outline-none focus:ring-2 
                                    focus:ring-[#FF385C] transition"/>
@@ -31,7 +31,7 @@ function Signup() {
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Last Name
                             </label>
-                            <input value="" type="text" name="last_name" className="w-full border border-gray-300 rounded-xl px-4 py-2.5 
+                            <input  type="text" name="last_name" className="w-full border border-gray-300 rounded-xl px-4 py-2.5 
                                    focus:outline-none focus:ring-2 
                                    focus:ring-[#FF385C] transition"/>
                         </div>
@@ -42,7 +42,7 @@ function Signup() {
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Email Address
                         </label>
-                        <input value="" type="email" name="email" required className="w-full border border-gray-300 rounded-xl px-4 py-2.5 
+                        <input  type="email" name="email" required className="w-full border border-gray-300 rounded-xl px-4 py-2.5 
                                focus:outline-none focus:ring-2 
                                focus:ring-[#FF385C] transition"/>
                     </div>
