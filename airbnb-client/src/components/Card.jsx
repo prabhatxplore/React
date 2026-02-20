@@ -9,7 +9,7 @@ function Card({ home }) {
             <div className="relative aspect-[4/3] overflow-hidden">
                 <img
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    src={`http://localhost:3000${home.photo}`}
+                    src={`http://192.168.100.65:3000${home.photo}`}
                     alt="Property"
                 />
 
