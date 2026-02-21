@@ -46,13 +46,13 @@ function Navbar() {
               <>
                 <NavLink
                   className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
-                  href="/host/host-home"
+                  to="/host-homes"
                 >
                   Host Home
                 </NavLink>
                 <NavLink
+                  to="/add-home"
                   className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
-                  href="/host/add-home"
                 >
                   Add Home
                 </NavLink>
