@@ -38,7 +38,7 @@ function Navbar() {
             </NavLink>
             <NavLink
               className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
-              href="/fav-list"
+              to="/fav-home"
             >
               Favourite
             </NavLink>
