@@ -1,28 +1,61 @@
+import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
-function Card({ home,children }) {
+function Card({ home, children }) {
+  const [fav, setFav] = useState(false)
+  const { favourites, setFavourites } = useAuth()
+  const handleSubmitFav = async (e) => {
+    e.preventDefault()
+    const res = await fetch(`/api/favourites/${fav ? "remove-fav" : "add-fav"}/${home._id}`, {
+      credentials: "include",
+      method: fav ? "DELETE" : "POST"
+    })
+
+    const data = await res.json()
+
+    if (data.success) {
+      console.log(data)
+      setFavourites(data.favourites)
+    }
+  }
+
+  useEffect(() => {
+    if (favourites?.length > 0) {
+      const favId = favourites.map(favHome => favHome._id.toString())
+      if (favId.includes(home._id.toString())) {
+        setFav(true)
+      } else {
+        setFav(false)
+      }
+    } else {
+      setFav(false)
+    }
+  }, [favourites])
   return (
     <div className="w-full max-w-[280px] bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col border border-gray-100 group">
       {/* */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          src={`http://192.168.100.65:3000${home.photo}`}
+          src={`http://192.168.100.68:3000${home.photo}`}
           alt="Property"
         />
 
         {/* Favorite Heart Over Image */}
-        <form action="" method="POST" className="absolute top-3 right-3 z-10">
+        <form onSubmit={handleSubmitFav} className="absolute  top-3 right-3 z-10">
           <input type="hidden" name="_id" value="<%= home._id %>" />
           <button
             type="submit"
-            className="p-2 rounded-full bg-white/80 hover:bg-white text-gray-900 shadow-sm transition-colors"
+            className="p-2 rounded-full cursor-pointer bg-white/80 hover:bg-white text-gray-900 shadow-sm transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill="none"
+              fill={fav ? "red" : "none"}
+              stroke={fav ? "red" : "currentColor"}
+
               viewBox="0 0 24 24"
               strokeWidth="2"
-              stroke="currentColor"
+
               className="w-4 h-4"
             >
               <path
