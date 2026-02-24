@@ -8,6 +8,7 @@ import HomeDetails from "../pages/HomeDetails";
 import AddHome from "../pages/AddHome";
 import HostHomes from "../pages/HostHomes";
 import EditHome from "../pages/EditHome";
+import Favourites from "../pages/Favourites";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
         path: "/edit-home/:editHomeID",
         element: <EditHome />,
       },
+      {
+        path: "/fav-home",
+        element: <Favourites />
+      }
     ],
   },
 ]);
