@@ -4,6 +4,8 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [favourites, setFavourites] = useState([])
+
 
   useEffect(() => {
     console.log("hello");
@@ -20,8 +22,27 @@ export const AuthProvider = ({ children }) => {
       .catch((err) => console.log("Error Fetching", err)); // user exist only set otherwise set null
   }, []);
 
+  useEffect(() => {
+    try {
+      const fetchFav = async () => {
+        const res = await fetch("/api/favourites", {
+          credentials: "include"
+        })
+
+        const data = await res.json();
+        if (data.success) {
+          console.log(data)
+          setFavourites(data.favourites)
+        }
+      }
+
+      fetchFav()
+    } catch (err) {
+      console.error(err)
+    }
+  }, [])
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, favourites, setFavourites }}>
       {children}
     </AuthContext.Provider>
   );
