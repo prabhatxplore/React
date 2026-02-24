@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 export default function Home() {
   const { setUser } = useAuth();
   const [homes, setHomes] = useState([]);
+  const { favourites } = useAuth()
   useEffect(() => {
     fetch("/api/home", {
       credentials: "include",
@@ -17,7 +18,7 @@ export default function Home() {
         console.log(data);
       })
       .catch((err) => console.log("Error Occured while fetching homes", err));
-  }, []);
+  }, [favourites]);
 
   return (
     <>
