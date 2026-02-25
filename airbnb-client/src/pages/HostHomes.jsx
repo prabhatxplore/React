@@ -49,7 +49,7 @@ function HostHomes() {
           <Card key={home._id} home={home}>
             <Link
               to={`/edit-home/${home._id}`}
-              className="flex-1 text-center py-2 rounded-xl border border-gray-200 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition"
+              className="flex-1 text-center py-2 rounded-xl border border-gray-200 text-gray-700 font-semibold text-sm hover:bg-gray-50 hover:border-black hover:border-[2px] transition"
             >
               Edit
             </Link>
@@ -58,7 +58,7 @@ function HostHomes() {
               onClick={() => {
                 handleHomeDelete(home._id);
               }}
-              className="flex-1 py-2 rounded-xl bg-red-500 text-white font-semibold text-sm hover:bg-red-600 transition"
+              className="flex-1 py-2 rounded-xl outline-[2px] outline-red-500 text-red-500 hover:text-white font-semibold text-sm hover:bg-red-500 transition cursor-pointer"
             >
               Delete
             </button>

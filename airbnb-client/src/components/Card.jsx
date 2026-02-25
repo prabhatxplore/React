@@ -30,14 +30,14 @@ function Card({ home, children }) {
     } else {
       setFav(false)
     }
-  }, [favourites])
+  }, [])
   return (
     <div className="w-full max-w-[280px] bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col border border-gray-100 group">
       {/* */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          src={`http://192.168.100.68:3000${home.photo}`}
+          src={`http://192.168.100.64:3000${home.photo}`}
           alt="Property"
         />
 
