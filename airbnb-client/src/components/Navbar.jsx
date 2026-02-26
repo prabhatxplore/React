@@ -32,7 +32,7 @@ function Navbar() {
           <>
             <NavLink
               className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
-              href="/bookings"
+              to="/my-bookings"
             >
               Booking
             </NavLink>

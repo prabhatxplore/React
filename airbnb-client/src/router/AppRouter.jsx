@@ -9,6 +9,7 @@ import AddHome from "../pages/AddHome";
 import HostHomes from "../pages/HostHomes";
 import EditHome from "../pages/EditHome";
 import Favourites from "../pages/Favourites";
+import MyBooking from "../pages/MyBooking";
 
 const router = createBrowserRouter([
   {
@@ -46,8 +47,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/fav-home",
-        element: <Favourites />
-      }
+        element: <Favourites />,
+      },
+      {
+        path: "/my-bookings",
+        element: <MyBooking />,
+      },
     ],
   },
 ]);
