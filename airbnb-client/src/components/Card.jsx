@@ -1,36 +1,8 @@
-import { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+
+import AddFav from "./AddFav";
 
 function Card({ home, children }) {
-  const [fav, setFav] = useState(false)
-  const { favourites, setFavourites } = useAuth()
-  const handleSubmitFav = async (e) => {
-    e.preventDefault()
-    const res = await fetch(`/api/favourites/${fav ? "remove-fav" : "add-fav"}/${home._id}`, {
-      credentials: "include",
-      method: fav ? "DELETE" : "POST"
-    })
 
-    const data = await res.json()
-
-    if (data.success) {
-      console.log(data)
-      setFavourites(data.favourites)
-    }
-  }
-
-  useEffect(() => {
-    if (favourites?.length > 0) {
-      const favId = favourites.map(favHome => favHome._id.toString())
-      if (favId.includes(home._id.toString())) {
-        setFav(true)
-      } else {
-        setFav(false)
-      }
-    } else {
-      setFav(false)
-    }
-  }, [])
   return (
     <div className="w-full max-w-[280px] bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col border border-gray-100 group">
       {/* */}
@@ -42,30 +14,9 @@ function Card({ home, children }) {
         />
 
         {/* Favorite Heart Over Image */}
-        <form onSubmit={handleSubmitFav} className="absolute  top-3 right-3 z-10">
-          <input type="hidden" name="_id" value="<%= home._id %>" />
-          <button
-            type="submit"
-            className="p-2 rounded-full cursor-pointer bg-white/80 hover:bg-white text-gray-900 shadow-sm transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill={fav ? "red" : "none"}
-              stroke={fav ? "red" : "currentColor"}
-
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-
-              className="w-4 h-4"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-              />
-            </svg>
-          </button>
-        </form>
+        <div className="absolute top-2 right-2">
+          <AddFav _id={home._id} />
+        </div>
       </div>
 
       {/* */}
