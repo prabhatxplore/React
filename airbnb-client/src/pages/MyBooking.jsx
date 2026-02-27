@@ -20,7 +20,7 @@ function MyBooking() {
       <h1 className=" text-center p-6 rounded-3xl font-medium text-2xl ">
         My Bookings
       </h1>
-      <div className="flex flex-wrap justify-center items-center gap-9">
+      <div  className="flex flex-wrap justify-center items-center gap-9">
         {booking?.map((home) => (
           <BookingCard key={home._id} booking={home} />
         ))}
