@@ -47,9 +47,9 @@ export default function Home() {
               >
                 Details
               </Link>
-              <button className="flex-1 py-2 rounded-xl bg-gray-900 text-white font-semibold text-sm hover:bg-black transition">
+              <Link to={`/home-details/${home._id}#myBooking`} className="flex-1 py-2 text-center rounded-xl bg-blue-600 cursor-pointer text-white font-semibold text-sm hover:bg-blue-800 transition">
                 Book Now
-              </button>
+              </Link>
             </Card>
           ))}
         </div>
