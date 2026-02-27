@@ -68,7 +68,7 @@ const BookingCard = ({ booking }) => {
       <div className="flex-1 flex flex-col justify-center space-y-3">
         {/* Title + Location */}
         <div>
-          <h2 className="text-lg font-semibold text-gray-800">Ronaldo</h2>
+          <h2 className="text-lg font-semibold text-gray-800">{booking.home?.house_name}</h2>
 
           <p className="text-sm text-gray-500">📍 {booking.home?.location}</p>
 
