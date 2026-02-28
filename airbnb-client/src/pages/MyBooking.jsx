@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import Card from "../components/Card";
 import BookingCard from "../components/BookingCard";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY)
 
 function MyBooking() {
   const [booking, setBooking] = useState([]);
@@ -20,11 +23,13 @@ function MyBooking() {
       <h1 className=" text-center p-6 rounded-3xl font-medium text-2xl ">
         My Bookings
       </h1>
-      <div  className="flex flex-wrap justify-center items-center gap-9">
-        {booking?.map((home) => (
-          <BookingCard key={home._id} booking={home} />
-        ))}
-      </div>
+      <Elements stripe={stripePromise}>
+        <div className="flex flex-wrap justify-center items-center gap-9">
+          {booking?.map((home) => (
+            <BookingCard key={home._id} booking={home} />
+          ))}
+        </div>
+      </Elements>
     </div>
   );
 }

@@ -78,7 +78,7 @@ const HomeDetails = () => {
         <div className="group relative w-full aspect-[21/9] rounded-3xl overflow-hidden shadow-2xl shadow-slate-200">
           <img
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            src={`http://192.168.100.64:3000${home?.photo}`}
+            src={`http://192.168.100.66:3000${home?.photo}`}
             alt={home?.house_name}
           />
           <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
