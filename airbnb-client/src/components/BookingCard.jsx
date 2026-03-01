@@ -1,7 +1,7 @@
 import { useState } from "react";
-import MakePayment from "./MakePayment";
+import { Link } from "react-router-dom";
 
-const BookingCard = ({ booking }) => {
+const BookingCard = ({ booking, setSelectBooking, setClientSecret }) => {
   console.log("This is my booking", booking);
   const statusTheme = {
     pending: {
@@ -46,22 +46,43 @@ const BookingCard = ({ booking }) => {
     }
   };
 
+  const handlePay = async (e) => {
+    e.preventDefault();
+    const data = await fetch(`/api/payment/create-payment-intent`, {
+      credentials: "include",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ bookingId: booking._id })
+    })
+
+    const response = await data.json()
+    if (response.success) {
+      console.log("Set select Booking", booking)
+      setSelectBooking(booking)
+      setClientSecret(response.clientSecret)
+    } else {
+      alert("failed to create payment intent")
+      setSelectBooking(null)
+      setClientSecret(null)
+    }
+  }
+
   return (
     <div
-      className={`relative w-full max-w-6xl mx-auto rounded-2xl border ${current.card} p-5 flex flex-col md:flex-row gap-5 shadow-sm hover:shadow-md transition`}
+      className={`relative w-full max-w-6xl mx-auto rounded-2xl border ${current.card} p-5 flex flex-col md:flex-row gap-5 shadow-sm hover:shadow-md transition group`}
     >
       {/* Status Badge */}
       <span
-        className={`absolute top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full ${current.badge}`}
+        className={`absolute z-10 top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full ${current.badge}`}
       >
         {booking.status?.toUpperCase()}
       </span>
-      <div className="flex-2">
+      <div className="flex-4 flex gap-5">
         {/* Image */}
-        <div className=" w-full h-40 ">
+        <div className=" w-full h-40 overflow-hidden rounded-xl">
           <img
-            className="w-full h-full object-cover rounded-xl"
-            src={`http://192.168.100.66:3000${booking.home?.photo}`}
+            className="w-full h-full group-hover:scale-110 object-cover object-top  transition-transform ease-in duration-300"
+            src={`http://192.168.100.65:3000${booking.home?.photo}`}
             alt={booking.home?.house_name}
           />
         </div>
@@ -97,15 +118,18 @@ const BookingCard = ({ booking }) => {
       {/* {booking.status !== "cancelled" && ( */}
       <div
 
-        className="flex flex-3 flex-col justify-center gap-4 "
+        className="flex flex-1 flex-col justify-center gap-4 "
       >
-        <MakePayment bookingHome={booking} />
-
-        {/* <button onClick={handleCancel}
+        <button onClick={handlePay}
+          className="px-4 text-center cursor-pointer py-2 bg-green-400 border-[1.7px] font-medium border-green-600 text-black rounded-lg hover:opacity-70 transition text-sm"
+        >
+          Pay
+        </button>
+        <button onClick={handleCancel}
           className="px-4 cursor-pointer py-2 bg-red-100 border-[1.5px] font-medium border-red-500 text-red-500 rounded-lg hover:opacity-70 transition text-sm"
         >
           Cancel
-        </button> */}
+        </button>
       </div>
       {/* )} */}
     </div>
