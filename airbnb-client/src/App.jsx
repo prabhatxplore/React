@@ -4,12 +4,12 @@ import Navbar from "./components/Navbar"
 function App() {
 
   return (
-    <>
+    <div className=" h-screen flex flex-col">
       <Navbar />
-      <main>
+      <main className="overflow-y-auto">
         <Outlet />
       </main>
-    </>
+    </div>
   )
 }
 
