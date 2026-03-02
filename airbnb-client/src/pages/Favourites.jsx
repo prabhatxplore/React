@@ -13,7 +13,6 @@ function Favourites() {
         const data = await res.json()
 
         if (data.success) {
-            console.log(data)
             setFavourites(data.favourites)
         }
     }

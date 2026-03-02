@@ -14,22 +14,15 @@ export const bookingSchecma = yup.object({
             "Booking must be for at least 1 night",
             function (value) {
                 const { checkIn } = this.parent
-                console.log(checkIn)
                 if (!checkIn || !value) return true
 
                 const start = new Date(checkIn)
                 const end = new Date(value)
 
-                console.log("Start Date", start)
-                console.log("End Date", end)
 
                 const diffInMs = end.getTime() - start.getTime();
-                console.log("Difference in minutes", diffInMs)
 
                 const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-                console.log("Difference in days", diffInDays)
-
-                console.log("is greater or equal to a day :", diffInDays >= 1)
                 return diffInDays >= 1;
             }
         )

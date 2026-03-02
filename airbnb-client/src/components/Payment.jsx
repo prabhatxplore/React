@@ -10,8 +10,6 @@ function Payment({ booking, clientSecret, onClose }) {
         e.preventDefault()
 
         if (!stripe || !elements) return
-        console.log("Stripe Stripe", stripe)
-        console.log("Stripe Elements", elements)
 
         const { error, paymentIntent } = await stripe.confirmPayment({
             elements,
@@ -30,7 +28,7 @@ function Payment({ booking, clientSecret, onClose }) {
     }
     return (
         <div className='fixed w-full h-full z-50 flex items-center justify-center backdrop-blur-[10px]'>
-            <div className='flex mb-16 md:w-[70vw] gap-5 shadow-sm hover:shadow-md transition rounded-2xl p-5 bg-white/85'>
+            <div className='flex mb-16 md:w-[70vw] gap-5 shadow-sm hover:shadow-md transition rounded-2xl p-5 bg-white/85 max-h-[80vh] overflow-y-auto'>
 
                 <div
                     className={` w-full max-w-6xl  flex flex-2 flex-col  gap-5 `}
@@ -40,7 +38,7 @@ function Payment({ booking, clientSecret, onClose }) {
                         <div className=" w-full h-40 ">
                             <img
                                 className="w-full h-full object-cover rounded-xl"
-                                src={`http://192.168.100.65:3000${booking.home?.photo}`}
+                                src={`${booking.home?.photo}`}
                                 alt={booking.home?.house_name}
                             />
                         </div>

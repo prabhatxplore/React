@@ -18,7 +18,6 @@ function Signup() {
     },
     validationSchema: signupSchema,
     onSubmit: async (values) => {
-      console.log(values);
       const res = await fetch("/api/signup", {
         method: "POST",
         headers: {
@@ -30,7 +29,6 @@ function Signup() {
       });
 
       const data = await res.json();
-      console.log(data);
       if (data.success && data.user) {
         setUser(data.user);
         navigate("/");

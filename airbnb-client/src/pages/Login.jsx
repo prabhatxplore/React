@@ -12,7 +12,6 @@ function Login() {
     if (user) {
       alert("User Logged in");
     } else {
-      console.log({ email, password });
       fetch("/api/login", {
         method: "POST",
         credentials: "include",
@@ -21,7 +20,6 @@ function Login() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.success && data.user) {
             setUser(data.user);
             navigate("/");

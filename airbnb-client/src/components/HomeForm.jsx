@@ -91,7 +91,6 @@ export default function HomeForm({
           type="file"
           name="photo"
           onChange={(event) => {
-            console.log(event.currentTarget);
             formik.setFieldValue("photo", event.currentTarget.files[0]);
           }}
           className="w-full text-sm cursor-pointer text-gray-600

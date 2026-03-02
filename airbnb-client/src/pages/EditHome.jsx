@@ -32,7 +32,6 @@ function EditHome() {
     title: `Edit ${editHome.house_name}`,
     submit: "Update",
   };
-  console.log(editHome);
   const initialValues = {
     house_name: editHome.house_name,
     price: editHome.price,

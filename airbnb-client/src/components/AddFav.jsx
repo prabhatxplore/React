@@ -14,7 +14,6 @@ function AddFav({ _id }) {
         const data = await res.json()
 
         if (data.success) {
-            console.log(data)
             setFavourites(data.favourites)
         }
     }

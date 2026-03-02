@@ -25,11 +25,6 @@ function AddHome() {
     formData.append("location", values.location);
     formData.append("photo", values.photo);
     formData.entries();
-    console.log(values);
-    for (const pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
-
     try {
       const res = await fetch("/api/host/add-home", {
         method: "POST",
@@ -37,7 +32,6 @@ function AddHome() {
         body: formData,
       });
       const data = await res.json();
-      console.log(data);
       navigate("/host-homes");
     } catch (err) {
       console.error(err);

@@ -17,14 +17,10 @@ export default function Booking({ home }) {
         },
         body: JSON.stringify({ ...values, homeId: home._id }),
       });
-      console.log(JSON.stringify({ ...values, homeId: home._id }));
-      console.log(values);
 
       const data = await res.json();
-      console.log(data);
       if (data.success) {
         alert(data.message)
-        console.log(data.message);
       } else {
         alert(data.message)
       }

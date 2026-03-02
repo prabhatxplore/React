@@ -8,13 +8,11 @@ export const AuthProvider = ({ children }) => {
 
 
   useEffect(() => {
-    console.log("hello");
     fetch("/api/session-user", {
       credentials: "include",
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data) {
           setUser(data.user);
         }
@@ -31,7 +29,6 @@ export const AuthProvider = ({ children }) => {
 
         const data = await res.json();
         if (data.success) {
-          console.log(data)
           setFavourites(data.favourites)
         }
       }

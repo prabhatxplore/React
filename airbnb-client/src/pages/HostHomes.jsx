@@ -28,13 +28,11 @@ function HostHomes() {
 
   const handleHomeDelete = async (homeId) => {
     try {
-      console.log(homeId);
       const res = await fetch(`/api/host/delete-home/${homeId}`, {
         method: "DELETE",
         credentials: "include",
       });
       const data = await res.json();
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
