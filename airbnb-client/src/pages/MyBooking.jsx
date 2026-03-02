@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BookingCard from "../components/BookingCard";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -10,30 +10,33 @@ function MyBooking() {
   const [booking, setBooking] = useState([]);
   const [selectBooking, setSelectBooking] = useState(null)
   const [clientSecret, setClientSecret] = useState(null)
-  useEffect(() => {
-    const fetchBookingHome = async () => {
-      const res = await fetch(`/api/bookings`, { credentials: "include" });
-      const data = await res.json();
-      if (data.success) {
-        console.log(data);
-        setBooking(data.bookings);
-      }
-    };
-    fetchBookingHome();
+
+  const fetchBookingHome = useCallback(async () => {
+    const res = await fetch(`/api/bookings`, { credentials: "include" });
+    const data = await res.json();
+    if (data.success) {
+      setBooking(data.bookings);
+    }
   }, []);
 
-  console.log(selectBooking)
-  console.log(clientSecret)
+  useEffect(() => {
+    fetchBookingHome();
+  }, [fetchBookingHome]);
+
+  const handleClosePayment = () => {
+    setSelectBooking(null);
+    setClientSecret(null);
+    // refresh list after a successful payment
+    fetchBookingHome();
+  };
+
   return (
     <div className="relative">
       {selectBooking && clientSecret && <Elements options={{ clientSecret }} stripe={stripePromise}>
         <Payment booking={selectBooking}
         
           clientSecret={clientSecret}
-          onClose={() => {
-            setSelectBooking(null)
-            setClientSecret(null)
-          }} />
+          onClose={handleClosePayment} />
       </Elements>}
       <div className="border-t-[1px] border-t-gray-300 px-3 overflow-y-auto">
         <h1 className=" text-center p-6 rounded-3xl font-medium text-2xl ">
