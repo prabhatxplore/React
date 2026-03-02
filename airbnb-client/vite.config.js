@@ -8,10 +8,15 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://192.168.100.65:3000",
+        target: process.env.VITE_LOCAL,
         changeOrigin: true,
         // secure: false,
       },
+      "/uploads": {
+        target: [process.env.VITE_REMOTE],
+        changeOrigin: true,
+      }
     },
+    allowedHosts: []
   },
 });
