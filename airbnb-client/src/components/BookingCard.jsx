@@ -2,11 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const BookingCard = ({ booking, setSelectBooking, setClientSecret }) => {
-  console.log("This is my booking", booking);
   const statusTheme = {
     pending: {
       card: "bg-yellow-50 border-yellow-200",
-      badge: "bg-yellow-500 text-white",
+      badge: "bg-yellow-500 text-black",
+    },
+    paid: {
+      card: "bg-blue-50 border-blue-200",
+      badge: "bg-blue-600 text-white"
     },
     confirmed: {
       card: "bg-green-50 border-green-200",
@@ -57,11 +60,10 @@ const BookingCard = ({ booking, setSelectBooking, setClientSecret }) => {
 
     const response = await data.json()
     if (response.success) {
-      console.log("Set select Booking", booking)
       setSelectBooking(booking)
       setClientSecret(response.clientSecret)
     } else {
-      alert("failed to create payment intent")
+      alert(response.message)
       setSelectBooking(null)
       setClientSecret(null)
     }
@@ -81,8 +83,8 @@ const BookingCard = ({ booking, setSelectBooking, setClientSecret }) => {
         {/* Image */}
         <div className=" w-full h-40 overflow-hidden rounded-xl">
           <img
-            className="w-full h-full group-hover:scale-110 object-cover object-top  transition-transform ease-in duration-300"
-            src={`http://192.168.100.65:3000${booking.home?.photo}`}
+            className="w-full h-full group-hover:scale-110 object-cover object-center  transition-transform ease-in duration-300"
+            src={`${booking.home?.photo}`}
             alt={booking.home?.house_name}
           />
         </div>
@@ -120,16 +122,20 @@ const BookingCard = ({ booking, setSelectBooking, setClientSecret }) => {
 
         className="flex flex-1 flex-col justify-center gap-4 "
       >
-        <button onClick={handlePay}
-          className="px-4 text-center cursor-pointer py-2 bg-green-400 border-[1.7px] font-medium border-green-600 text-black rounded-lg hover:opacity-70 transition text-sm"
-        >
-          Pay
-        </button>
-        <button onClick={handleCancel}
-          className="px-4 cursor-pointer py-2 bg-red-100 border-[1.5px] font-medium border-red-500 text-red-500 rounded-lg hover:opacity-70 transition text-sm"
-        >
-          Cancel
-        </button>
+        {["pending"].includes(booking.status) && <>
+          <button onClick={handlePay}
+            className="px-4 text-center cursor-pointer py-2 bg-green-400 border-[1.7px] font-medium border-green-600 text-black rounded-lg hover:opacity-70 transition text-sm"
+          >
+            Pay
+          </button>
+          <button onClick={handleCancel}
+            className="px-4 cursor-pointer py-2 bg-red-100 border-[1.5px] font-medium border-red-500 text-red-500 rounded-lg hover:opacity-70 transition text-sm"
+          >
+            Cancel
+          </button>
+
+        </>}
+
       </div>
       {/* )} */}
     </div>
