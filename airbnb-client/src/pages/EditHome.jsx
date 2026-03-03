@@ -20,7 +20,8 @@ function EditHome() {
           setEditHome(data.home);
         }
       } catch (err) {
-        console.error(err);
+        console.error(err)
+        alert(data.message)
       }
     };
     fetchEditHome();
@@ -36,7 +37,7 @@ function EditHome() {
     house_name: editHome.house_name,
     price: editHome.price,
     location: editHome.location,
-    photo: null,
+    photo: editHome.photo,
     description: editHome.description,
   };
 
