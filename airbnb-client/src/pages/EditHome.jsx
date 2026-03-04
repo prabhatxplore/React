@@ -48,7 +48,7 @@ function EditHome() {
     formData.append("description", values.description);
     formData.append("location", values.location);
     formData.append("photo", values.photo);
-
+    
     try {
       const res = await fetch(`/api/host/edit-home/${editHomeID}`, {
         method: "POST",
@@ -67,6 +67,7 @@ function EditHome() {
   return (
     <main className="flex items-center justify-center px-4 py-16">
       <HomeForm
+        isEdit={true}
         onSubmit={onSubmit}
         initialValues={initialValues}
         texts={texts}

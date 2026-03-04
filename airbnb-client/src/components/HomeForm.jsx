@@ -5,14 +5,14 @@ export default function HomeForm({
   Schema,
   onSubmit,
   initialValues,
-  texts,
+  texts, isEdit
 }) {
-  const [preview, setPreview] = useState(null)
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: Schema,
     onSubmit: onSubmit,
   });
+  const [preview, setPreview] = useState(isEdit ? formik.values.photo : null)
 
   const handleFileChange = (event) => {
     const selectedFile = event.currentTarget.files[0]
@@ -22,8 +22,9 @@ export default function HomeForm({
     setPreview(objectURL)
   }
   useEffect(() => {
+
     return () => {
-      if (preview) {
+      if (preview && preview.startsWith("blob:")) {
         URL.revokeObjectURL(preview)
       }
     }

@@ -41,6 +41,7 @@ function AddHome() {
   return (
     <main className="flex items-center justify-center px-4 py-16">
       <HomeForm
+        isEdit={false}
         onSubmit={onSubmit}
         initialValues={initialValues}
         texts={texts}

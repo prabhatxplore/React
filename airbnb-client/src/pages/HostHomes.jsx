@@ -5,24 +5,24 @@ import Card from "../components/Card";
 function HostHomes() {
   const [homes, setHomes] = useState([]);
   const navigate = useNavigate();
-  useEffect(() => {
-    const fetchHostHomes = async () => {
-      try {
-        const res = await fetch("/api/host/host-homes", {
-          method: "GET",
-          credentials: "include",
-        });
-        const data = await res.json();
+  const fetchHostHomes = async () => {
+    try {
+      const res = await fetch("/api/host/host-homes", {
+        method: "GET",
+        credentials: "include",
+      });
+      const data = await res.json();
 
-        if (data.success) {
-          setHomes(data.homes);
-        } else {
-          navigate("/");
-        }
-      } catch (error) {
-        console.error(error);
+      if (data.success) {
+        setHomes(data.homes);
+      } else {
+        navigate("/");
       }
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
     fetchHostHomes();
   }, []);
 
@@ -53,8 +53,9 @@ function HostHomes() {
             </Link>
 
             <button
-              onClick={() => {
-                handleHomeDelete(home._id);
+              onClick={async () => {
+                await handleHomeDelete(home._id);
+                fetchHostHomes();
               }}
               className="flex-1 py-2 rounded-xl outline-[2px] outline-red-500 text-red-500 hover:text-white font-semibold text-sm hover:bg-red-500 transition cursor-pointer"
             >
