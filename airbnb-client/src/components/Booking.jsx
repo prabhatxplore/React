@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { bookingSchecma } from "../validation/bookingSchema";
+import { toast } from "react-toastify";
 
 export default function Booking({ home }) {
   const formik = useFormik({
@@ -20,9 +21,9 @@ export default function Booking({ home }) {
 
       const data = await res.json();
       if (data.success) {
-        alert(data.message)
+        toast.success(data.message)
       } else {
-        alert(data.message)
+        toast.error(data.message)
       }
     },
   });

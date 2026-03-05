@@ -1,5 +1,6 @@
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 function Payment({ booking, clientSecret, onClose }) {
     const stripe = useStripe()
@@ -18,11 +19,10 @@ function Payment({ booking, clientSecret, onClose }) {
 
         if (error) {
             console.log(error)
-            alert("Failed")
+            toast.error("Failed")
         }
         if (paymentIntent.status === "succeeded") {
-            alert("Payment Successful")
-            console.log("payment success")
+            toast.success("Payment Successful")
             onClose()
         }
     }

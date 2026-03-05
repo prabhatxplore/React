@@ -34,7 +34,7 @@ function MyBooking() {
     <div className="relative">
       {selectBooking && clientSecret && <Elements options={{ clientSecret }} stripe={stripePromise}>
         <Payment booking={selectBooking}
-        
+
           clientSecret={clientSecret}
           onClose={handleClosePayment} />
       </Elements>}
@@ -45,7 +45,9 @@ function MyBooking() {
 
         <div className="flex flex-wrap justify-center items-center gap-9">
           {booking?.map((home) => (
-            <BookingCard key={home._id} booking={home} setClientSecret={setClientSecret} setSelectBooking={setSelectBooking} />
+            <BookingCard key={home._id} booking={home} setClientSecret={setClientSecret} setSelectBooking={setSelectBooking} refresh={() => {
+              fetchBookingHome()
+            }} />
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-const BookingCard = ({ booking, setSelectBooking, setClientSecret }) => {
+import { toast } from "react-toastify";
+const BookingCard = ({ booking, setSelectBooking, setClientSecret, refresh }) => {
+  const [isPay, setIsPay] = useState(false)
   const statusTheme = {
     pending: {
       card: "bg-yellow-50 border-yellow-200",
@@ -38,17 +39,21 @@ const BookingCard = ({ booking, setSelectBooking, setClientSecret }) => {
         const data = await res.json();
 
         if (data.success) {
-          alert(data.message);
+          toast.success(data.message)
+          refresh()
         } else {
           setError(data.message);
+          toast.error(data.message)
         }
       } catch (err) {
         console.log(err);
+        toast.error("Failed")
       }
     }
   };
 
   const handlePay = async (e) => {
+    setIsPay(true)
     e.preventDefault();
     const data = await fetch(`/api/payment/create-payment-intent`, {
       credentials: "include",
@@ -58,11 +63,14 @@ const BookingCard = ({ booking, setSelectBooking, setClientSecret }) => {
     })
 
     const response = await data.json()
+    console.log(response)
     if (response.success) {
+      toast.info(response.message)
       setSelectBooking(booking)
       setClientSecret(response.clientSecret)
     } else {
-      alert(response.message)
+      setIsPay(false)
+      toast.info(response.message)
       setSelectBooking(null)
       setClientSecret(null)
     }
@@ -117,25 +125,26 @@ const BookingCard = ({ booking, setSelectBooking, setClientSecret }) => {
       </div>
       {/* Button */}
       {/* {booking.status !== "cancelled" && ( */}
-      <div
+
+      {["pending"].includes(booking.status) && <> <div
 
         className="flex flex-1 flex-col justify-center gap-4 "
       >
-        {["pending"].includes(booking.status) && <>
-          <button onClick={handlePay}
-            className="px-4 text-center cursor-pointer py-2 bg-green-400 border-[1.7px] font-medium border-green-600 text-black rounded-lg hover:opacity-70 transition text-sm"
-          >
-            Pay
-          </button>
-          <button onClick={handleCancel}
-            className="px-4 cursor-pointer py-2 bg-red-100 border-[1.5px] font-medium border-red-500 text-red-500 rounded-lg hover:opacity-70 transition text-sm"
-          >
-            Cancel
-          </button>
-
-        </>}
-
+        <button onClick={handlePay}
+          className="px-4 text-center cursor-pointer py-2 bg-green-400 border-[1.7px] font-medium border-green-600 text-black rounded-lg hover:opacity-70 transition text-sm"
+        >
+          Pay
+        </button>
+        <button onClick={handleCancel}
+          disabled={isPay}
+          className="px-4 cursor-pointer py-2 bg-red-100 border-[1.5px] font-medium border-red-500 text-red-500 rounded-lg hover:opacity-70 transition text-sm"
+        >
+          Cancel
+        </button>
       </div>
+      </>}
+
+
       {/* )} */}
     </div>
   );
