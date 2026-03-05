@@ -1,8 +1,10 @@
 import { useFormik } from "formik";
 import { bookingSchecma } from "../validation/bookingSchema";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Booking({ home }) {
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       checkIn: "",
@@ -22,6 +24,7 @@ export default function Booking({ home }) {
       const data = await res.json();
       if (data.success) {
         toast.success(data.message)
+        navigate("/my-bookings")
       } else {
         toast.error(data.message)
       }
