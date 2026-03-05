@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 const BookingCard = ({ booking, setSelectBooking, setClientSecret, refresh }) => {
+  const [date, setDate] = useState(null)
+  useEffect(() => {
+    setDate(new Date(booking.createdAt))
+  }, [])
   const [isPay, setIsPay] = useState(false)
   const statusTheme = {
     pending: {
       card: "bg-yellow-50 border-yellow-200",
       badge: "bg-yellow-500 text-black",
+
     },
     paid: {
       card: "bg-blue-50 border-blue-200",
@@ -68,6 +73,7 @@ const BookingCard = ({ booking, setSelectBooking, setClientSecret, refresh }) =>
       toast.info(response.message)
       setSelectBooking(booking)
       setClientSecret(response.clientSecret)
+      refresh()
     } else {
       setIsPay(false)
       toast.info(response.message)
@@ -78,9 +84,22 @@ const BookingCard = ({ booking, setSelectBooking, setClientSecret, refresh }) =>
 
   return (
     <div
-      className={`relative w-full max-w-6xl mx-auto rounded-2xl border ${current.card} p-5 flex flex-col md:flex-row gap-5 shadow-sm hover:shadow-md transition group`}
+      className={`relative w-full max-w-6xl mb-6 mx-auto rounded-2xl border ${current.card} p-5 flex flex-col md:flex-row gap-5 shadow-sm hover:shadow-md transition duration-500 group`}
     >
+      {/* Time created */}
+
       {/* Status Badge */}
+      <span className={`absolute z-10 -top-4  right-6  border-[1px] rounded-[7px] px-3 ${current.card} `}>
+        {date && date.toLocaleString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+
+          hour12: true // or false for 24h format
+        })}
+      </span>
       <span
         className={`absolute z-10 top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full ${current.badge}`}
       >
