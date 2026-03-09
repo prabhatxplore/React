@@ -1,0 +1,25 @@
+
+
+import { useAuth } from './AuthContext'
+import { Navigate, Outlet } from 'react-router-dom'
+
+function RoleProtectedRoute({ allowedRoles }) {
+    const { user, loading } = useAuth()
+    console.log("Protected route checking")
+    console.log("Loading Status", loading)
+    console.log(user)
+
+    if (loading) return <div className='text-center'>Loading...</div>
+
+    if (!user) {
+        return <Navigate to="/login" />
+    }
+
+    if (!allowedRoles.includes(user.user_type)) {
+        return <Navigate to="/unauthorized" />
+    }
+
+    return <Outlet />
+}
+
+export default RoleProtectedRoute

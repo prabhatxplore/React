@@ -10,7 +10,8 @@ import HostHomes from "../pages/HostHomes";
 import EditHome from "../pages/EditHome";
 import Favourites from "../pages/Favourites";
 import MyBooking from "../pages/MyBooking";
-import ProtectedRoute from "../context/ProtectedRoute";
+import RoleProtectedRoute from "../context/RoleProtectedRoute";
+import Unauthorized from "../pages/Unauthorized";
 
 const router = createBrowserRouter([
   {
@@ -31,12 +32,30 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        element: <ProtectedRoute />,
+        path: "/unauthorized",
+        element: <Unauthorized />
+      },
+      {
+        element: <RoleProtectedRoute allowedRoles={["guest"]} />,
         children: [
           {
             path: "home-details/:homeID",
             element: <HomeDetails />,
           },
+
+          {
+            path: "/fav-home",
+            element: <Favourites />,
+          },
+          {
+            path: "/my-bookings",
+            element: <MyBooking />,
+          },]
+      },
+
+      {
+        element: <RoleProtectedRoute allowedRoles={["host"]} />,
+        children: [
           {
             path: "/add-home",
             element: <AddHome />,
@@ -49,19 +68,8 @@ const router = createBrowserRouter([
             path: "/edit-home/:editHomeID",
             element: <EditHome />,
           },
-          {
-            path: "/fav-home",
-            element: <Favourites />,
-          },
-          {
-            path: "/my-bookings",
-            element: <MyBooking />,
-          },]
-      },
-      // {
-      //   path: "/my-bookings",
-      //   element: <></>,
-      // }
+        ]
+      }
     ],
   },
 ]);
