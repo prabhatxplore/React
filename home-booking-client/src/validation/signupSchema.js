@@ -17,13 +17,12 @@ export const signupSchema = yup.object({
     .string()
     .required("Password is required")
     .min(8, "Minimum 8 characters long")
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/,
-      "Password must include at least one letter and one number",
-    ),
+    .matches(/[A-Za-z]/, "Must include at least one letter")
+    .matches(/\d/, "Must include at least one number")
+    .matches(/[@$!%*?&#^]/, "Must include at least one special character"),
   confirm_password: yup
     .string()
-    .required("Confirm your Password required")
+    .required("Confirm Password is required")
     .oneOf([yup.ref("password")], "Password must match"),
 
   user_type: yup
