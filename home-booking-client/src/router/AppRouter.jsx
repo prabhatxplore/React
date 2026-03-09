@@ -10,6 +10,7 @@ import HostHomes from "../pages/HostHomes";
 import EditHome from "../pages/EditHome";
 import Favourites from "../pages/Favourites";
 import MyBooking from "../pages/MyBooking";
+import ProtectedRoute from "../context/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -30,28 +31,32 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: "home-details/:homeID",
-        element: <HomeDetails />,
-      },
-      {
-        path: "/add-home",
-        element: <AddHome />,
-      },
-      {
-        path: "/host-homes",
-        element: <HostHomes />,
-      },
-      {
-        path: "/edit-home/:editHomeID",
-        element: <EditHome />,
-      },
-      {
-        path: "/fav-home",
-        element: <Favourites />,
-      },
-      {
-        path: "/my-bookings",
-        element: <MyBooking />,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "home-details/:homeID",
+            element: <HomeDetails />,
+          },
+          {
+            path: "/add-home",
+            element: <AddHome />,
+          },
+          {
+            path: "/host-homes",
+            element: <HostHomes />,
+          },
+          {
+            path: "/edit-home/:editHomeID",
+            element: <EditHome />,
+          },
+          {
+            path: "/fav-home",
+            element: <Favourites />,
+          },
+          {
+            path: "/my-bookings",
+            element: <MyBooking />,
+          },]
       },
       // {
       //   path: "/my-bookings",

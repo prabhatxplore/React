@@ -4,10 +4,12 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false)
   const [favourites, setFavourites] = useState([])
 
 
   useEffect(() => {
+    setLoading(true)
     fetch("/api/session-user", {
       credentials: "include",
     })
@@ -16,6 +18,7 @@ export const AuthProvider = ({ children }) => {
         if (data) {
           setUser(data.user);
         }
+        setLoading(false)
       })
       .catch((err) => console.log("Error Fetching", err)); // user exist only set otherwise set null
   }, []);
@@ -30,6 +33,7 @@ export const AuthProvider = ({ children }) => {
         const data = await res.json();
         if (data.success) {
           setFavourites(data.favourites)
+          setLoading(false)
         }
       }
 
@@ -39,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [])
   return (
-    <AuthContext.Provider value={{ user, setUser, favourites, setFavourites }}>
+    <AuthContext.Provider value={{ user, setUser, loading, favourites, setFavourites }}>
       {children}
     </AuthContext.Provider>
   );
