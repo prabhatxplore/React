@@ -1,15 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [favourites, setFavourites] = useState([])
 
-
   useEffect(() => {
-    setLoading(true)
     fetch("/api/session-user", {
       credentials: "include",
     })
@@ -20,7 +20,10 @@ export const AuthProvider = ({ children }) => {
         }
         setLoading(false)
       })
-      .catch((err) => console.log("Error Fetching", err)); // user exist only set otherwise set null
+      .catch((err) => {
+        toast.error("Failed to login")
+        setLoading(false)
+      }); // user exist only set otherwise set null
   }, []);
 
   useEffect(() => {
