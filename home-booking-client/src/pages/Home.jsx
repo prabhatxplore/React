@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
+import HeroSlideshow from "../components/HeroSlideshow";
 
 export default function Home() {
   const { user, setUser } = useAuth();
@@ -22,9 +23,7 @@ export default function Home() {
 
   return (
     <>
-      <div>
-        
-      </div>
+      <HeroSlideshow homes={homes} />
 
       <div className="border-t-[1px] border-t-gray-300 px-3 overflow-y-auto">
         <h1 className=" text-center p-6 rounded-3xl font-medium text-2xl ">
