@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { toast } from 'react-toastify'
 
 function AddFav({ _id }) {
     const [fav, setFav] = useState(false)
@@ -15,6 +16,8 @@ function AddFav({ _id }) {
 
         if (data.success) {
             setFavourites(data.favourites)
+        } else {
+            toast.error("Failed")
         }
     }
 
