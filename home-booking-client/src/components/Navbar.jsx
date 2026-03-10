@@ -16,56 +16,59 @@ function Navbar() {
       navigate("/login");
     }
   };
+  const navClass = ({ isActive }) =>
+    `${isActive ? "bg-blue-600 text-white" : ""} transition ease-in-out  duration-150 rounded-[8px] p-1 px-3 font-medium`
   return (
-    <nav className="w-full h-16 flex justify-between text-center items-center gap-4 px-4">
+    <nav className="w-full h-16 flex justify-between  text-center items-center gap-4 px-4">
       <div className="flex-1">
         <span className="font-bold text-2xl text-[#FF385C]">Airbnb</span>
       </div>
       <div className="flex-3 flex justify-center">
-        {user.user_type !== "host" ? <NavLink
-          className="transition duration-150 rounded-[8px] p-1 px-3 font-medium"
-          href="/"
+        {user && user.user_type === "host" ? (
+          <>
+            <NavLink
+              className={navClass}
+              to="/dashboard"
+            >
+              Dashboard
+            </NavLink>
+            <NavLink
+              className={navClass}
+              to="/host-homes"
+            >
+              Host Home
+            </NavLink>
+            <NavLink
+              to="/add-home"
+              className={navClass}
+            >
+              Add Home
+            </NavLink>
+          </>
+        ) : null}
+        <NavLink
+          className={navClass}
+          to="/"
         >
           Home
-        </NavLink> : null}
+        </NavLink>
 
         {user ? (
           <>
-            {user.user_type === "guest" ? <><NavLink
-              className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
+            {user?.user_type === "guest" ? <><NavLink
+              className={navClass}
               to="/my-bookings"
             >
               Booking
             </NavLink>
               <NavLink
-                className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
+                className={navClass}
                 to="/fav-home"
               >
                 Favourite
               </NavLink></> : null}
 
-            {user && user.user_type === "host" ? (
-              <>
-                <NavLink
-                  className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
-                  to="/host-homes"
-                >
-                  Dashboard
-                </NavLink>
-                <NavLink
-                  className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
-                  to="/host-homes"
-                >
-                  Host Home
-                </NavLink>
-                <NavLink
-                  to="/add-home"
-                  className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
-                >
-                  Add Home
-                </NavLink>
-              </>
-            ) : null}
+
           </>
         ) : null}
       </div>

@@ -25,7 +25,7 @@ export default function HeroSlideshow({ homes }) {
   const home = homes[current];
 
   return (
-    <div className="relative  h-[480px] w-[1100px] rounded-[14px] m-auto overflow-hidden">
+    <div className="relative hidden md:block  h-[480px] w-5xl rounded-[14px] m-auto overflow-hidden">
 
       {/* Background image */}
       <img
