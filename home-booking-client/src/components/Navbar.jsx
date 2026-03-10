@@ -22,28 +22,36 @@ function Navbar() {
         <span className="font-bold text-2xl text-[#FF385C]">Airbnb</span>
       </div>
       <div className="flex-3 flex justify-center">
-        <NavLink
+        {user.user_type !== "host" ? <NavLink
           className="transition duration-150 rounded-[8px] p-1 px-3 font-medium"
           href="/"
         >
           Home
-        </NavLink>
+        </NavLink> : null}
+
         {user ? (
           <>
-            <NavLink
+            {user.user_type === "guest" ? <><NavLink
               className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
               to="/my-bookings"
             >
               Booking
             </NavLink>
-            <NavLink
-              className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
-              to="/fav-home"
-            >
-              Favourite
-            </NavLink>
+              <NavLink
+                className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
+                to="/fav-home"
+              >
+                Favourite
+              </NavLink></> : null}
+
             {user && user.user_type === "host" ? (
               <>
+                <NavLink
+                  className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
+                  to="/host-homes"
+                >
+                  Dashboard
+                </NavLink>
                 <NavLink
                   className=" transition duration-150 rounded-[8px] p-1 px-3 font-medium"
                   to="/host-homes"
