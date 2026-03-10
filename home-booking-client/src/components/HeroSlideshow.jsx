@@ -14,8 +14,8 @@ export default function HeroSlideshow({ homes }) {
       setTimeout(() => {
         setCurrent((prev) => (prev + 1) % homes.length);
         setFade(true); // fade in
-      }, 400);
-    }, 4000);
+      }, 500);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [homes]);
@@ -25,7 +25,7 @@ export default function HeroSlideshow({ homes }) {
   const home = homes[current];
 
   return (
-    <div className="relative w-full h-[480px] overflow-hidden">
+    <div className="relative  h-[480px] w-[1100px] rounded-[14px] m-auto overflow-hidden">
 
       {/* Background image */}
       <img
