@@ -23,8 +23,8 @@ function Login() {
         .then((data) => {
           if (data.success && data.user) {
             setUser(data.user);
+            toast.success(`Login successful`)
             navigate("/");
-            toast.success("Login successful")
           } else {
             toast.error(data.message)
             setPassword("");
