@@ -9,6 +9,7 @@ const Dashboard = () => {
   const getStatusStyle = (status) => {
     switch (status.toLowerCase()) {
       case 'paid':
+        return 'bg-blue-100 text-blue-700 border-blue-200'
       case 'confirmed':
         return 'bg-green-100 text-green-700 border-green-200';
       case 'pending':
@@ -79,30 +80,30 @@ const Dashboard = () => {
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <p className="text-gray-500 text-sm">Total Revenue</p>
           <h2 className="text-2xl font-bold text-gray-800">
-            NPR {bookings.filter(b => b.status === 'paid').reduce((sum, b) => sum + b.totalPrice, 0)}
+            $ {bookings.filter(b => b.status === 'paid').reduce((sum, b) => sum + b.totalPrice, 0)}
           </h2>
         </div>
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <p className="text-gray-500 text-sm">Active Bookings</p>
           <h2 className="text-2xl font-bold text-blue-600">{bookings.filter(b => b.status !== 'cancelled').length}</h2>
         </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        {/* <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <p className="text-gray-500 text-sm">Cancellation Rate</p>
           <h2 className="text-2xl font-bold text-red-500">
             {bookings.length > 0 ? ((bookings.filter(b => b.status === 'cancelled').length / bookings.length) * 100).toFixed(1) : 0}%
           </h2>
-        </div>
+        </div> */}
       </div>
 
       {/* Filter Tabs */}
       <div className="flex gap-2 mb-4 bg-white p-1 rounded-lg shadow-sm w-fit border border-gray-200">
-        {['all', 'paid', 'pending', 'cancelled'].map((status) => (
+        {['all', 'paid', 'pending', 'cancelled','confirmed'].map((status) => (
           <button
             key={status}
             onClick={() => setFilterStatus(status)}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${filterStatus === status
-                ? 'bg-indigo-600 text-white shadow-md'
-                : 'text-gray-600 hover:bg-gray-100'
+              ? 'bg-indigo-600 text-white shadow-md'
+              : 'text-gray-600 hover:bg-gray-100'
               }`}
           >
             {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -126,7 +127,7 @@ const Dashboard = () => {
             {filteredBookings.length > 0 ? filteredBookings.map(home => (
               <tr key={home._id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                 <td className="p-4 font-medium text-gray-800">{home.homeDetails.house_name}</td>
-                <td className="p-4 text-center">NPR {home.totalPrice}</td>
+                <td className="p-4 text-center">${home.totalPrice}</td>
                 <td className="p-4 text-center text-sm text-gray-600">
                   {calculateDays(home.checkIn, home.checkOut)} Nights
                 </td>
