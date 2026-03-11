@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 function AddFav({ _id }) {
     const [fav, setFav] = useState(false)
-    const { favourites, setFavourites } = useAuth()
+    const { favourites, setFavourites, user } = useAuth()
+    const navigate = useNavigate()
     const handleSubmitFav = async (e) => {
         e.preventDefault()
+        if (!user) {
+            toast.info("Login first")
+            navigate("/login")
+            return
+        }
         const res = await fetch(`/api/favourites/${fav ? "remove-fav" : "add-fav"}/${_id}`, {
             credentials: "include",
             method: fav ? "DELETE" : "POST"
@@ -22,6 +29,7 @@ function AddFav({ _id }) {
     }
 
     useEffect(() => {
+
         if (!_id) return
         if (favourites?.length > 0) {
             const favId = favourites.map(favHome => favHome._id.toString())

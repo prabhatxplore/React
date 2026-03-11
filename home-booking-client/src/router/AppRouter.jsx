@@ -12,6 +12,7 @@ import Favourites from "../pages/Favourites";
 import MyBooking from "../pages/MyBooking";
 import RoleProtectedRoute from "../context/RoleProtectedRoute";
 import Unauthorized from "../pages/Unauthorized";
+import Dashboard from "../pages/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
       {
         element: <RoleProtectedRoute allowedRoles={["host"]} />,
         children: [
-          { path: "/dashboard" },
+          { path: "/dashboard", element: <Dashboard /> },
           {
             path: "/add-home",
             element: <AddHome />,

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function Login() {
@@ -72,6 +72,12 @@ function Login() {
           value="Login"
           className="w-full cursor-pointer font-medium shadow-md bg-green-500 hover:bg-green-600 text-black rounded-3xl h-11 transition duration-300 active:scale-95"
         />
+        <Link to="/signup" className="text-center"><span className="text-red-500">New user? </span> <span className=" text-blue-600 hover:underline">
+
+
+          Create an account
+        </span>
+        </Link>
       </form>
     </main>
   );
