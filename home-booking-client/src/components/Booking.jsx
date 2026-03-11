@@ -2,9 +2,12 @@ import { useFormik } from "formik";
 import { bookingSchecma } from "../validation/bookingSchema";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Booking({ home }) {
+  const { user } = useAuth()
   const navigate = useNavigate()
+  if (user?.user_type === "host") return null
   const formik = useFormik({
     initialValues: {
       checkIn: "",

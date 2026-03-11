@@ -38,9 +38,9 @@ export default function Home() {
               >
                 Details
               </Link>
-              <Link to={`/home-details/${home._id}#myBooking`} className="flex-1 py-2 text-center rounded-xl bg-blue-600 cursor-pointer text-white font-semibold text-sm hover:bg-blue-800 transition">
+              {user?.user_type === "guest" && <Link to={`/home-details/${home._id}#myBooking`} className="flex-1 py-2 text-center rounded-xl bg-blue-600 cursor-pointer text-white font-semibold text-sm hover:bg-blue-800 transition">
                 Book Now
-              </Link>
+              </Link>}
             </Card>
           ))}
         </div>

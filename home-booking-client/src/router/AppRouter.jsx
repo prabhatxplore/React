@@ -35,14 +35,15 @@ const router = createBrowserRouter([
       {
         path: "/unauthorized",
         element: <Unauthorized />
+      }, 
+      {
+        path: "home-details/:homeID",
+        element: <HomeDetails />,
       },
       {
         element: <RoleProtectedRoute allowedRoles={["guest"]} />,
         children: [
-          {
-            path: "home-details/:homeID",
-            element: <HomeDetails />,
-          },
+
 
           {
             path: "/fav-home",
